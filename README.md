@@ -29,6 +29,17 @@ To build and train a deep learning model using LSTM for accurate short-term fore
 | Validation   | Jul 2023 – Dec 2023  |
 | Testing      | Jan 2024 – Feb 2024  |
 
+
+## Prediction Results
+
+Google stock price predictions with LSTM:
+![Google stock price predictions with LSTM](https://github.com/Susanta2102/DeepStock/blob/main/output%201.png)
+
+
+
+Google stock price predictions with LSTM (last 50 financial days):
+![Google stock price predictions with LSTM](https://github.com/Susanta2102/DeepStock/blob/main/output%202.png)
+
 ---
 
 ## ⚙️ Project Pipeline
