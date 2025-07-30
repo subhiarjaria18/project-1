@@ -1,70 +1,80 @@
-# LSTM Time Series - Multivariate Stock Price Prediction
-This project implements a time series multivariate analysis using RNN/LSTM for stock price predictions. A deep RNN model was created and trained on five years of historical Google stock price data to forecast the stock performance over a two-month period.
+# 📈 LSTM Time Series - Multivariate Stock Price Prediction
 
-## Data Set ([Google Stock Price](https://finance.yahoo.com/quote/GOOG/history))
-The dataset utilized comprises historical records for the stock price of [Alphabet Inc. (GOOG)](https://finance.yahoo.com/quote/GOOG/history), captured on daily basis.
+This project uses a **Long Short-Term Memory (LSTM)** model to predict future Google stock prices using a multivariate time series approach. The LSTM model is trained using historical stock data over a span of five years and forecasts future trends over a two-month window. The approach is useful for learning sequential patterns and long-term dependencies in stock market data.
 
-The dataset is sourced from [Yahoo Finance](https://finance.yahoo.com/) and contains the following fields: *Opening price, Highest price, Lowest price, Closing price, Adjusted closing price, and Trading volume*.
+---
 
-Initially, the entire dataset was explored and then a specific time period was selected to perform training, validation, and predictions as follows:
+## 🔍 Objective
 
-- **Training data:** from Jan 2019 till June 2023.
-- **Validation data:** from July 2023 till Dec 2023.
-- **Testing data:** first two months of 2024.
+To build and train a deep learning model using LSTM for accurate short-term forecasting of stock prices using historical daily stock data (open, high, low, close, volume).
 
+---
 
-### PHASE 1 - Explanatory Data Analysis
-> Corresponding notebook:  [data-explanatory-analysis.ipynb](https://github.com/Susanta2102/DeepStock/blob/main/Data-Explanatory-Analysis.ipynb)
+## 📊 Dataset
 
-Implemented data exploration tasks:
-1. Download and load the raw dataset file.
-2. Explore dataset summary and statistics.
-3. Perform initial data cleaning and type validation.
-4. Analyze the stock performance data over time.
-5. Select a specific period for analysis and filter data accordingly.
-6. Store filtered dataset file to a local folder.
+- **Source**: [Yahoo Finance - Alphabet Inc. (GOOG)](https://finance.yahoo.com/quote/GOOG/history)
+- **Features Used**:
+  - Open Price
+  - High Price
+  - Low Price
+  - Close Price
+  - Adjusted Close
+  - Volume
 
+### ⏳ Time Periods Used:
 
-### PHASE 2 - Data Preprocessing
-> Corresponding notebook:  [data-preprocessing.ipynb](https://github.com/Susanta2102/DeepStock/blob/main/Data-Preprocessing.ipynb)
+| Phase        | Date Range           |
+|--------------|----------------------|
+| Training     | Jan 2019 – Jun 2023  |
+| Validation   | Jul 2023 – Dec 2023  |
+| Testing      | Jan 2024 – Feb 2024  |
 
-Implemented data processing and transformation tasks:
-1. Load the filtered dataset file.
-2. Validate and correct data types.
-3. Select independent and target features.
-4. Create training, validation, and testing splits.
-5. Scale datasets to a [0,1] range using [MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html).
-6. Store processed data files (train, validate, test) to a local folder.
+---
 
-### PHASE 3 - Model Training and Inference
-> Corresponding notebook:  [model-training.ipynb](https://github.com/Susanta2102/DeepStock/blob/main/model-training.ipynb)
+## ⚙️ Project Pipeline
 
-Implemented training and prediction tasks:
-1. Load preprocessed dataset files (train, validate, test).
-2. Construct data structures by creating input sequences.
-3. Build LSTM Model using [TenserFlow Sequential](https://www.tensorflow.org/api_docs/python/tf/keras/Sequential):
-    - First [Input](https://www.tensorflow.org/api_docs/python/tf/keras/layers/InputLayer) layer.
-    - 4x [LSTM](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM) layers: units = 100
-    - 4x [Dropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout) layers: rate = 0.2
-    - Final [Dense](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dense) layer with a single unit.
-4. Compile LSTM model:
-    - Optimizer: [Adam](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam)
-    - Loss: [Mean Squared Error](https://www.tensorflow.org/api_docs/python/tf/keras/losses/MeanSquaredError)
-5. Train LSTM model:
-    - Epochs: 200
-    - Batch size: 64
-6. Evaluate model performance: training and validation losses.
-7. Predict future stock prices across training, validation, and testing periods.
-8. Inverse scale predictions to their original distribution.
-9. Visualize and analyze predictions.
+### ✅ PHASE 1 - Exploratory Data Analysis (EDA)
 
-## Prediction Results
+📁 `data-explanatory-analysis.ipynb`
 
-Google stock price predictions with LSTM:
-![Google stock price predictions with LSTM](https://github.com/Susanta2102/DeepStock/blob/main/output%201.png)
+- Load and inspect raw dataset.
+- Generate summary statistics and visualize trends.
+- Filter and store cleaned data for modeling.
 
+---
 
+### ⚙️ PHASE 2 - Data Preprocessing
 
-Google stock price predictions with LSTM (last 50 financial days):
-![Google stock price predictions with LSTM](https://github.com/Susanta2102/DeepStock/blob/main/output%202.png)
+📁 `data-preprocessing.ipynb`
 
+- Handle missing values, validate data types.
+- Select independent variables and target variable.
+- Perform MinMax scaling to [0, 1].
+- Split into training, validation, and test datasets.
+
+---
+
+### 🧠 PHASE 3 - Model Training and Inference
+
+📁 `model-training.ipynb`
+
+- Sequence generation for time series modeling.
+- LSTM Model Architecture:
+  - 4 LSTM layers (units=100)
+  - 4 Dropout layers (rate=0.2)
+  - Final Dense layer with 1 unit
+- Compilation:
+  - Optimizer: `Adam`
+  - Loss Function: `Mean Squared Error`
+- Training:
+  - Epochs: `200`
+  - Batch size: `64`
+- Prediction and inverse scaling.
+- Visualization of actual vs predicted prices.
+
+---
+
+## 🏗️ Model Architecture
+
+```text
+Input → LSTM → Dropout → LSTM → Dropout → LSTM → Dropout → LSTM → Dropout → Dense → Output
